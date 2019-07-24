@@ -23,8 +23,9 @@ export let cache = function(fn) {
  *  先快后慢的缓动函数
  * @param {*} start 缓动起始位置
  * @param {*} end 缓动目标位置
- * @param {*} rate 缓动比例
+ * @param {*} rate 速度衰减比例
  * @param {*} callback 每次缓动后执行的回调件函数
+ * 用缓动函数做的移动端轮播效果例子 /html-examples/mobile/touch-slider.html
  */
 export let easeOut = function({ start = 0, end = 0, rate = 2, callback } = {}) {
   let isAnimating = true

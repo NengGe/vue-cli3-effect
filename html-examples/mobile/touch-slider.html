@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .tab-box {
+      display: flex;
+      margin: 10px 0px 10px 30px;
+    }
+
+    .tab-item {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: normal;
+    }
+
+    .tab-active {
+      color: white;
+      background: red;
+    }
+
+    .slider-container {
+      width: 300px;
+      height: 200px;
+      margin: 10px auto;
+    }
+
+    .slider-box {
+      overflow:
+        hidden;
+    }
+
+    .slider-wrapper::after {
+      display: block;
+      content: '';
+      clear: both;
+    }
+
+    .slider-item {
+      float: left;
+      width: 300px;
+      line-height: 200px;
+      font-size: 50px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .item1 {
+      background: red;
+    }
+
+    .item2 {
+      background: yellow;
+    }
+
+    .item3 {
+      background: green;
+    }
+
+    .item4 {
+      background: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="tab-box">
+    <div class="tab-item tab-active" data-index="0">1</div>
+    <div class="tab-item" data-index="1">2</div>
+    <div class="tab-item" data-index="2">3</div>
+    <div class="tab-item" data-index="3">4</div>
+  </div>
+  <div class="slider-container">
+    <div class="slider-box">
+      <div class="slider-wrapper">
+        <div class="slider-item item1">1--slider</div>
+        <div class="slider-item item2">2--slider</div>
+        <div class="slider-item item3">3--slider</div>
+        <div class="slider-item item4">4--slider</div>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  let easeOut = function({ start = 0, end = 0, rate = 5, callback } = {}) {
+    let isAnimating = true
+    if (!window.removeEventListener) {
+      requestAnimationFrame = function(fn) {
+        setTimeout(fn, 17)
+      }
+    }
+    let step = function() {
+      start += (end - start) / rate
+      if (Math.abs(end - start) < 1) {
+        isAnimating = false
+        typeof callback === 'function' && callback(end, isAnimating)
+        return
+      }
+      typeof callback === 'function' && callback(start, isAnimating)
+      requestAnimationFrame(step)
+    }
+    step()
+  }
+
+  function setTransform({ el, x = 0, y = 0, z = 0 } = {}) {
+    el.style.transform = `translate3d(${x}px, 0, 0)`
+  }
+
+  function setTransition({ el, timeout = 500 } = {}) {
+    el.style.transition = `all ${timeout}ms`
+  }
+
+  // 修复tab索引
+  function fixTab() {
+    for (let i = 0; i < tabItem.length; i++) {
+      tabItem[i].classList.remove(TAB_ACTIVE)
+    }
+    tabItem[target.index].classList.add(TAB_ACTIVE)
+  }
+  // 初始化tab效果
+  function tabEffect(doms = [], className = TAB_ACTIVE) {
+    let tabItem = doms;
+    [].forEach.call(tabItem, function(item, ind) {
+      tabItem[ind].classList.remove(className)
+    })
+    let index = parseInt(this.getAttribute('data-index'))
+    target.index = index
+    tabItem[index].classList.add(className)
+  }
+
+  let tabItem = document.querySelectorAll('.tab-item')
+  let target = document.querySelector('.slider-wrapper')
+  let sliderWrapperWidth = target.clientWidth // 这个时候只有300
+  let start = 0 // 起始位置
+  target.index = 0
+  const TAB_ACTIVE = 'tab-active'
+  target.style.width = sliderWrapperWidth * tabItem.length + 'px'
+
+  // setTransition({el: target, timeout: 500})
+  // 初始化
+  setTransform({ el: target, x: start })
+  for (let i = 0;i < tabItem.length;i++) {
+    tabItem[i].onclick = function() {
+      tabEffect.call(this, tabItem)
+      let end = -target.index * sliderWrapperWidth
+      easeOut({
+        start, end, callback: function(xEnd) {
+          start = xEnd
+          setTransform({ el: target, x: xEnd })
+        }
+      })
+    }
+  }
+
+
+  target.addEventListener('touchstart', (e) => {
+    let touch = e.touches[0]
+    target.startX = touch.pageX
+  })
+
+
+  target.addEventListener('touchmove', (e) => {
+    let touch = e.touches[0]
+    target.moveX = touch.pageX
+    let dis = target.moveX - target.startX
+    let position = start + dis
+    setTransform({ el: target, x: position })
+  })
+
+  target.addEventListener('touchend', (e) => {
+    let dis = target.moveX - target.startX
+    let position = start + dis
+    let maxRight = -(tabItem.length - 1) * sliderWrapperWidth
+    if (position > 0) { // 超出最左边slider时候
+      setTransform({ el: target, x: 0 })
+      target.index = 0
+      start = 0
+      fixTab() 
+      return
+    }
+    if (position < maxRight) { // 超出最右边slider时候
+      setTransform({ el: target, x: maxRight })
+      target.index = tabItem.length - 1
+      start = -(tabItem.length - 1) * sliderWrapperWidth
+      fixTab()
+      return
+    }
+    if (Math.abs(dis) > 80) { // 是否滑动的限制值
+      dis > 0 ? (target.index -= 1) : (target.index += 1 )
+      let end = -target.index * sliderWrapperWidth
+      start = position
+      easeOut({ start, end, callback: function(xEnd) {
+          start = xEnd
+          setTransform({ el: target, x: xEnd })
+          fixTab()
+        }
+      })
+    } else {
+      setTransform({ el: target, x: start })
+    }
+  })
+
+</script>
+
+</html>
