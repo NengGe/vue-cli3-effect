@@ -59,7 +59,7 @@ export let insertSort = function({ targetArr = [], word = '', order = 'desc' } =
     return targetArr
   }
   (order && order !== 'desc' && order !== 'asc') && (order = 'desc')
-  while(targetArr.length) {
+  while (targetArr.length) {
     let element = targetArr.shift()
     let isObject = typeof element === 'object'
     let ele = Number(isObject ? element[word] : element)
