@@ -7,6 +7,6 @@ export default [
   {
     path: '/timeLine',
     name: 'timeLine',
-    component: () => import('@/components/time-line')
+    component: () => import('@/components/time-line/demo')
   }
 ]

@@ -1,4 +1,4 @@
-export let isArray = function() {
+export let isArray = function(arr) {
   return Object.prototype.toString.call(arr) === '[object Array]'
 }
 /**
@@ -30,7 +30,7 @@ export let cache = function(fn) {
 export let easeOut = function({ start = 0, end = 0, rate = 2, callback } = {}) {
   let isAnimating = true
   if (!window.removeEventListener) {
-    requestAnimationFrame = function(fn) {
+    window.requestAnimationFrame = function(fn) {
       setTimeout(fn, 17)
     }
   }
@@ -72,4 +72,13 @@ export let insertSort = function({ targetArr = [], word = '', order = 'desc' } =
   }
   targetArr = null
   return newArr
+}
+
+// 得到css样式
+export function getStyle(obj, name) {
+  if (obj.currentStyle) {
+    return obj.currentStyle[name]
+  } else {
+    return getComputedStyle(obj, false)[name]
+  }
 }
