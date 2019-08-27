@@ -8,10 +8,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store/index'
 
-import { Button, Select, Option } from 'element-ui'
+import { Button, Select, Option, Table, TableColumn } from 'element-ui'
 Vue.component(Button.name, Button)
 Vue.component(Select.name, Select)
 Vue.component(Option.name, Option)
+Vue.component(Table.name, Table)
+Vue.component(TableColumn.name, TableColumn)
 // Vue.use(ElementUI)
 
 Vue.config.productionTip = false

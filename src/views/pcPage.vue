@@ -25,7 +25,7 @@ export default {
           label: '横向时间轴组件'
         },
         {
-          routePath: '',
+          routePath: 'pcScroll',
           label: 'pc滚动组件'
         },
         {

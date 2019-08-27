@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+  class Promise {
+    constructor(excutorCallBack) {
+      this.status = 'pending'
+      this.value = null
+      this.fulfillAry = []
+      this.rejectedAry = []
+      let resolve = result => {
+        if (this.status !== 'pending') return null
+        this.status = 'fulfilled'
+        this.value = result
+        this.fulfillAry.forEach(item => item(this.value))
+      }
+      let reject = reason => {
+        if (this.status !== 'pending') return null
+        this.status = 'rejected'
+        this.value = reason
+        // console.log(reason)
+        this.rejectedAry.forEach(item => item(this.value))
+      }
+      try {
+        excutorCallBack(resolve, reject)
+      } catch (err) {
+        reject(err)
+      }
+    }
+    then(fulfilledCallBack, rejectedCallBack) {
+
+      fulfilledCallBack = typeof fulfilledCallBack !== 'function' ? result => result : fulfilledCallBack
+
+      typeof rejectedCallBack !== 'function' ? rejectedCallBack = reason => {
+        throw new Error(reason instanceof Error ? reason.message : reason)
+      } : null
+      return new Promise((resolve, reject) => {
+        // console.log(this)
+        this.fulfillAry.push((info) => {
+          try {
+            let x = fulfilledCallBack(this.value)
+            x instanceof Promise ? x.then(resolve, reject) : resolve(x)
+          } catch (error) {
+            reject(error)
+          }
+        })
+        this.rejectedAry.push((msg) => {
+          try {
+            let x = rejectedCallBack(this.value)
+            x instanceof Promise ? x.then(resolve, reject) : reject(x)
+          } catch (error) {
+            reject(error)
+          }
+        })
+      })
+    }
+    catch(rejectedCallBack) {
+      return this.then(null, rejectedCallBack)
+    }
+    static all(promiseAry = []) {
+      let index = 0,
+        result = []
+      return new Promise((resolve, reject) => {
+        if (!promiseAry.length) {
+          return 
+        } else {
+          for (let i = 0;i < promiseAry.length;i++) {
+            promiseAry[i].then(val => {
+              index++
+              result[i] = val
+              if (index === promiseAry.length) {
+                resolve(result)
+              }
+            }, reject)
+          }
+        }
+      })
+    }
+    static race(promiseAry = []) {
+      return new Promise((resolve, reject) => {
+        if (!promiseAry.length) {
+          return
+        } else {
+          for(var i = 0; i < promiseAry.length; i++) {
+            promiseAry[i].then(val => {
+              resolve(val)
+            }, reject)
+          }
+        }
+      })
+    }
+  }
+</script>
+<script>
+  // 测试Promise
+  let p1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('6666')
+    }, 200)
+  }).then(data => {
+    return 'nimeide'
+  }).then(data => {
+    console.log(data)
+  })
+</script>
+
+</html>
