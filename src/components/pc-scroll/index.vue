@@ -1,17 +1,19 @@
 <template>
   <div class="scroll-wrapper">
     <div class="scroll-content" ref="content">
-      <div class="img-box" style="width: 2000px;" ref="imgBox">
-        <img src="./assets/img/1.jpg" alt="" width="300px" height="200px" />
-        <img src="./assets/img/2.jpg" alt="" width="300px" height="200px" />
-        <img src="./assets/img/3.jpg" alt="" width="300px" height="200px" />
-        <img src="./assets/img/4.jpg" alt="" width="300px" height="200px" />
-        <img src="./assets/img/5.jpg" alt="" width="300px" height="200px" />
-        <img src="./assets/img/6.jpg" alt="" width="300px" height="200px" />
-        <img src="./assets/img/7.jpg" alt="" width="300px" height="200px" />
-        <img src="./assets/img/8.jpg" alt="" width="300px" height="200px" />
-        <img src="./assets/img/9.jpg" alt="" width="300px" height="200px" />
-      </div>
+      <slot name="element-box">
+        <div class="element-box">
+          <img src="./assets/img/1.jpg" alt="" width="300px" height="200px" />
+          <img src="./assets/img/2.jpg" alt="" width="300px" height="200px" />
+          <img src="./assets/img/3.jpg" alt="" width="300px" height="200px" />
+          <img src="./assets/img/4.jpg" alt="" width="300px" height="200px" />
+          <img src="./assets/img/5.jpg" alt="" width="300px" height="200px" />
+          <img src="./assets/img/6.jpg" alt="" width="300px" height="200px" />
+          <img src="./assets/img/7.jpg" alt="" width="300px" height="200px" />
+          <img src="./assets/img/8.jpg" alt="" width="300px" height="200px" />
+          <img src="./assets/img/9.jpg" alt="" width="300px" height="200px" />
+        </div>
+      </slot>
     </div>
   </div>
 </template>
@@ -30,7 +32,7 @@ export default {
     setTimeout(() => {
       let el = this.$refs.content
       let pcscroll = new PcScroll({ el })
-      let imgList = document.querySelectorAll('img')
+      let imgList = [...document.querySelectorAll('img'), document.querySelector('.element-box')]
       Array.prototype.forEach.call(imgList, function(ele, item) {
         ele.addEventListener('mousedown', (ev) => {
           ev.preventDefault()
@@ -52,11 +54,12 @@ export default {
   .scroll-content {
     height: 100%;
   }
-  .img-box {
-    display: flex;
+  .element-box {
+    display: inline-flex;
     height: 260px;
     flex-wrap: nowrap;
     align-items: center;
+    width: auto;
     & > img {
       margin-left: 20px;
       -webkit-user-select: none;

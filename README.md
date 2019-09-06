@@ -27,3 +27,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 >html-examples
 >>moblie
 >>>touch-slider.html 用缓动函数做的slider效果
+>>designModel
+>>>手写promise.html
+>>>双向绑定原理.html

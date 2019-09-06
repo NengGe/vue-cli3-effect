@@ -2,6 +2,7 @@ import 'animate.css'
 import './assets/less/commom.less'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import './utils/excute'
 import Vue from 'vue'
 // import ElementUI from 'element-ui'
 import App from './App.vue'

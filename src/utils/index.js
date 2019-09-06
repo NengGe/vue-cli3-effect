@@ -29,7 +29,7 @@ export let cache = function(fn) {
  */
 export let easeOut = function({ start = 0, end = 0, rate = 2, callback } = {}) {
   let isAnimating = true
-  if (!window.removeEventListener) {
+  if (!window.requestAnimationFrame) {
     window.requestAnimationFrame = function(fn) {
       setTimeout(fn, 17)
     }
