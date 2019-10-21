@@ -29,7 +29,7 @@ export default {
           label: 'pc滚动组件'
         },
         {
-          routePath: '',
+          routePath: 'tab',
           label: 'tab切换过度效果'
         }
       ]

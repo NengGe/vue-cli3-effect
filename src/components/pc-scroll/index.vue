@@ -61,6 +61,9 @@ export default {
     align-items: center;
     width: auto;
     & > img {
+      &:nth-last-of-type(1) {
+        margin-right: 20px;
+      }
       margin-left: 20px;
       -webkit-user-select: none;
       -moz-user-select: none;

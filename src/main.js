@@ -1,9 +1,11 @@
 import 'animate.css'
 import './assets/less/commom.less'
 import 'element-ui/lib/theme-chalk/index.css'
+// import './theme/index.css'
 
 import './utils/excute'
 import Vue from 'vue'
+// const Vue = require('vue/dist/vue.runtime.common.js')
 // import ElementUI from 'element-ui'
 import App from './App.vue'
 import router from './router'
@@ -16,7 +18,6 @@ Vue.component(Option.name, Option)
 Vue.component(Table.name, Table)
 Vue.component(TableColumn.name, TableColumn)
 // Vue.use(ElementUI)
-
 Vue.config.productionTip = false
 
 new Vue({

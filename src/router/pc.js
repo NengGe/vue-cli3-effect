@@ -13,5 +13,10 @@ export default [
     path: '/pcScroll',
     name: 'pcScroll',
     component: () => import('@/components/pc-scroll')
+  },
+  {
+    path: '/tab',
+    name: 'tab',
+    component: () => import('@/components/tab/demo')
   }
 ]
