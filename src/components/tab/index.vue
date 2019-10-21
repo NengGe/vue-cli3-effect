@@ -17,9 +17,9 @@
     <div class="tab-content-box">
       <transition name="slide-left">
         <slot name="content" :index="activeIndex">
-          <div class="content-item" key="content1" v-if="activeIndex===1">内容一</div>
-          <div class="content-item" key="content2" v-else-if="activeIndex===2">内容二</div>
-          <div class="content-item" key="content3" v-else-if="activeIndex===3">内容三</div>
+          <div class="content-item" key="content1" v-if="activeIndex===0">内容一</div>
+          <div class="content-item" key="content2" v-else-if="activeIndex===1">内容二</div>
+          <div class="content-item" key="content3" v-else-if="activeIndex===2">内容三</div>
           <div class="content-item" key="content4" v-else>内容四</div>
         </slot>
       </transition>
