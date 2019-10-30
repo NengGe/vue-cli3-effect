@@ -25,3 +25,7 @@ new Vue({
   store,
   render: h => h(App)
 }).$mount('#app')
+
+// window.addEventListener('scroll', () => {
+//   console.log(document.documentElement.scrollTop)
+// })

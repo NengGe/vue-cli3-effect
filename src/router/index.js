@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 // 路由拆分
-let otherRouteDir = require.context('../router', true, /(pc)\.js/)
+let otherRouteDir = require.context('../router', true, /(pc|move)\.js/)
 function importRoutes(r) {
   let routes = []
   r.keys().forEach(key => {

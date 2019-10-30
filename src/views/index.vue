@@ -10,7 +10,7 @@
         <i class="iconfont iconshouzhi"></i>
       </div>
       <div class="box animated bounceInUp">
-        <div class="move effect" :class="[moveShake?'shake':'']">移动端效果戳这里</div>
+        <div class="move effect" :class="[moveShake?'shake':'']" @click="goMove">移动端效果戳这里</div>
         <i class="iconfont iconshouzhi"></i>
       </div>
     </div>
@@ -50,7 +50,10 @@ export default {
       this.moveShake = true
     },
     gopc() {
-      this.$router.push('pcPage')
+      this.$router.push('/pcPage')
+    },
+    goMove() {
+      this.$router.push('/movePage')
     }
   }
 }

@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <transition :name="isTransition?animateName:''">
+    <!-- <transition :name="isTransition?animateName:''"> -->
       <router-view class="view"></router-view>
-    </transition>
+    <!-- </transition> -->
   </div>
 </template>
 <script>
@@ -10,10 +10,13 @@ export default {
   data() {
     return {
       animateName: 'slide-left',
-      isTransition: false
+      isTransition: true
     }
   }
 }
 </script>
 <style lang="less">
+  #app {
+    height: 100%;
+  }
 </style>
