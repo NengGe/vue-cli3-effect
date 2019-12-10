@@ -18,5 +18,10 @@ export default [
     path: '/tab',
     name: 'tab',
     component: () => import('@/components/tab/demo')
+  },
+  {
+    path: '/select',
+    name: 'select',
+    component: () => import('@/components/select/demo')
   }
 ]

@@ -5,8 +5,8 @@ function merge(left, right) { // 排序部分
       result.push(left.shift())
     } else {
       result.push(right.shift())
-
-    } }
+    }
+  }
   return result.concat(left).concat(right)
 }
 /**
@@ -17,8 +17,8 @@ export function mergeSort(items) { // 拆分数组
   if (items.length === 1) {
     return items
   }
-  var middle = Math.floor(items.length / 2),
-    left = items.slice(0, middle),
-    right = items.slice(middle)
+  var middle = Math.floor(items.length / 2)
+  var left = items.slice(0, middle)
+  var right = items.slice(middle)
   return merge(mergeSort(left), mergeSort(right))
 }

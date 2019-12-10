@@ -3,10 +3,12 @@
     <h3 class="animated fadeInLeft">pc组件全览</h3>
     <div class="pc-page-btns">
       <el-button
-      type="info" round class="animated fadeInDown"
-      v-for="(item, index) in btnData"
-      :key="index"
-      @click.native="goEffectPage(item.routePath)"
+        type="info"
+        round
+        class="animated fadeInDown"
+        v-for="(item, index) in btnData"
+        :key="index"
+        @click.native="goEffectPage(item.routePath)"
       >{{item.label}}</el-button>
     </div>
   </div>
@@ -15,8 +17,7 @@
 // import contentItem from './conetent-item'
 export default {
   name: 'pcPage',
-  components: {
-  },
+  components: {},
   data() {
     return {
       btnData: [
@@ -31,6 +32,10 @@ export default {
         {
           routePath: 'tab',
           label: 'tab切换过度效果'
+        },
+        {
+          routePath: 'select',
+          label: '条件选择框'
         }
       ]
     }
@@ -40,7 +45,10 @@ export default {
       // this.$router.push(path)
       let href = location.href
       let index = href.indexOf('#')
-      let newUrl = href.slice(0, index + 1) + '' + (['/'].includes(path) ? path : `/${path}`)
+      let newUrl =
+        href.slice(0, index + 1) +
+        '' +
+        (['/'].includes(path) ? path : `/${path}`)
       window.open().location.href = newUrl
     }
   }
@@ -57,7 +65,7 @@ h3 {
   display: flex;
   justify-content: center;
 }
-/deep/ .el-button+.el-button {
- margin-left: 20px;
+/deep/ .el-button + .el-button {
+  margin-left: 20px;
 }
 </style>

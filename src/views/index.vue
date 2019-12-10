@@ -14,11 +14,16 @@
         <i class="iconfont iconshouzhi"></i>
       </div>
     </div>
+    <!-- <test :data="{}"></test> -->
   </div>
 </template>
 <script>
+// import test from '@/components/test'
 export default {
   name: 'index',
+  components: {
+    // test
+  },
   data() {
     return {
       pic: null,
