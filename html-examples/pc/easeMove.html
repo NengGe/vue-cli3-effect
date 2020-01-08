@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>狂奔的小球</title>
+  <!-- <link rel="stylesheet" href="css/reset.min.css"> -->
+  <style>
+    html,
+    body {
+      height: 100%;
+      overflow: hidden;
+    }
+
+    #box {
+      position: absolute;
+      top: 100px;
+      left: 100px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: lightcoral;
+      cursor: move;
+      z-index: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box"></div>
+</body>
+<script src="./drag.js"></script>
+<script>
+  let drag = new Drag(document.querySelector('#box'))
+  extendDrag(drag)
+</script>
+
+</html>

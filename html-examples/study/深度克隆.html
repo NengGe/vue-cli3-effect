@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script>
+    function clone(source) {
+      var target = {}
+      for (var i in source) {
+        if (source.hasOwnProperty(i)) {
+          if (typeof source[i] === 'object') {
+            target[i] = clone(source[i]) // 注意这里
+          } else {
+            target[i] = source[i]
+          }
+        }
+      }
+      return target
+    }
+    function cloneForce(x) {
+      let root = {}
+      let uniqueList = []
+      let loopList = [
+        {
+          parent: root,
+          key: undefined,
+          data: x
+        }
+      ]
+      while (loopList.length) {
+        let node = loopList.pop()
+        let parent = node.parent
+        let key = node.key
+        let data = node.data
+
+        let res = parent
+
+
+        if (key !== undefined) {
+          res = res[key] = {}
+        }
+        let uniqueData = find(uniqueList, data)
+        if (uniqueData) {
+          res[key] = uniqueData.target
+          break
+        }
+        uniqueList.push({
+          source: data,
+          target: res
+        })
+        for (let k in data) {
+          if (data.hasOwnProperty(k)) {
+            if (typeof data[k] === 'object') {
+              loopList.push({
+                parent: res,
+                key: k,
+                data: data[k]
+              })
+            } else {
+              res[k] = data[k]
+            }
+          }
+        }
+      }
+      return root
+    }
+    function find(arr, item) {
+      for (let i = 0;i < arr.length;i++) {
+        if (arr[i].source === item) {
+          return arr[i]
+        }
+      }
+      return null
+    }
+    // var a = { j: a, b: { age: 19, data: { name: '66666' } } }
+    var a = {}
+    a.a = a
+    // console.log(JSON.parse(JSON.stringify(a)))
+    var c = cloneForce(a)
+    console.log(a)
+    // console.log(createClone({a: 'heheh', b: {age: 19}}))
+
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

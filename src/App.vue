@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <!-- <transition :name="isTransition?animateName:''"> -->
       <router-view class="view"></router-view>
     <!-- </transition> -->
   </div>
@@ -12,6 +11,10 @@ export default {
       animateName: 'slide-left',
       isTransition: true
     }
+  },
+  mounted() {
+  },
+  methods: {
   }
 }
 </script>

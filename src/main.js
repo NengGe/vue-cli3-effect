@@ -6,6 +6,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import './utils/excute'
 import Vue from 'vue'
+import axios from 'axios'
 // const Vue = require('vue/dist/vue.runtime.common.js')
 // import ElementUI from 'element-ui'
 import App from './App.vue'
@@ -23,6 +24,7 @@ Vue.component(TableColumn.name, TableColumn)
 Vue.use(selectCondition)
 // console.log(selectItem)
 Vue.config.productionTip = false
+Vue.prototype.$axios = axios
 
 new Vue({
   router,

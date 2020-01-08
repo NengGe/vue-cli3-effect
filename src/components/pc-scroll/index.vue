@@ -32,9 +32,12 @@ export default {
     setTimeout(() => {
       let el = this.$refs.content
       let pcscroll = new PcScroll({ el })
-      let imgList = [...document.querySelectorAll('img'), document.querySelector('.element-box')]
+      let imgList = [
+        ...document.querySelectorAll('img'),
+        document.querySelector('.element-box')
+      ]
       Array.prototype.forEach.call(imgList, function(ele, item) {
-        ele.addEventListener('mousedown', (ev) => {
+        ele.addEventListener('mousedown', ev => {
           ev.preventDefault()
         })
       })

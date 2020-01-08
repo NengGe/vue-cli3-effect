@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="reload">替换更新</button>
+  <div id="root"></div>
+</body>
+<script>
+  // render函数 babel编译jsx
+  function h(type, prop = {}, ...children) { // 修饰虚拟node的辅助函数
+    return { type, prop, children }
+  }
+  function createElement(node) { // 生成真实dom
+    if (typeof node === 'string') {
+      return document.createTextNode(node)
+    }
+    let $el = document.createElement(node.type)
+    node.children.map(createElement).forEach($el.appendChild.bind($el))
+    return $el
+  }
+
+  function changed(node1, node2) { // 判断新节点和旧节点是否发生变化
+    return typeof node1 !== typeof node2 || typeof node1 === 'string' && node1 !== node2 
+      || node1.type !== node2.type
+  }
+
+  function updateElement($parent, newNode, oldNode, index = 0) { // 更新节点
+    if (!oldNode) {
+      $parent.appendChild(
+        createElement(newNode)
+      )
+    } else if(!newNode) {
+      $parent.removeChild($parent.childNodes[index])
+    } else if (changed(newNode, oldNode)) {
+      $parent.replaceChild(
+        createElement(newNode),
+        $parent.childNodes[index]
+      )
+    } else if(newNode.type) {
+      const newLength = newNode.children.length
+      const oldLength = oldNode.children.length
+      for(let i = 0; i < newLength || i < oldLength; i++) {
+        updateElement(
+          $parent.childNodes[index],
+          newNode.children[i],
+          oldNode.children[i],
+          i
+        )
+      }
+    }
+  }
+
+  let a = h('ul', {},
+    h('li', {}, 'hehe'),
+    h('li', {}, 'lallal')
+  )
+  let c = h('ul', {},
+    h('li', {}, 'hehe'),
+    h('li', {}, 'lalla6666')
+  )
+
+  let $root = document.getElementById('root')
+  let $reload = document.getElementById('reload')
+  updateElement($root, a)
+  $reload.addEventListener('click', () => {
+    updateElement($root, c, a)
+  })
+</script>
+
+</html>

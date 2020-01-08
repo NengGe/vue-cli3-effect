@@ -20,6 +20,40 @@ Function.prototype.bind = function(context = window, ...args) {
   let fBound = function() {
     return self.apply(this instanceof fBound ? this : context, [...args, ...Array.prototype.slice.call(arguments)])
   }
+  fBound.prototype = Object.create(this.prototype)
   return fBound
 }
+// instanceof
+function myInstanceof(left, right) {
+  let proto = Object.getPrototypeOf(left)
+  while (true) {
+    if (proto == null) return false
+    if (proto == right.prototype) return true
+    proto = Object.getPrototypeof(proto)
+  }
+}
+// 防抖
+const debounce = (fn, delay) => {
+  let timer = null
+  return (...args) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      fn.apply(this, args)
+    }, delay)
+  }
+}
+// 节流
+const throttle = (fn, delay = 500) => {
+  let flag = true
+  return (...args) => {
+    if (!flag) return
+    flag = false
+    setTimeout(() => {
+      fn.apply(this, args)
+      flag = true
+    }, delay)
+  }
+}
+
+
 
