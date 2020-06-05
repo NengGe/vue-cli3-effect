@@ -24,6 +24,7 @@ Vue.component(TableColumn.name, TableColumn)
 Vue.use(selectCondition)
 // console.log(selectItem)
 Vue.config.productionTip = false
+console.log(Vue.config)
 Vue.prototype.$axios = axios
 
 new Vue({

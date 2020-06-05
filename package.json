@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "output": "vue inspect > output.js",
+    "dll": "webpack --progress --config ./config/webpack.dll.config.js"
   },
   "dependencies": {
     "animate.css": "^3.7.2",
@@ -22,6 +24,7 @@
     "@vue/cli-plugin-eslint": "^3.9.0",
     "@vue/cli-service": "^3.9.0",
     "@vue/eslint-config-standard": "^4.0.0",
+    "add-asset-html-webpack-plugin": "^3.1.3",
     "babel-eslint": "^10.0.1",
     "babel-plugin-component": "^1.1.1",
     "eslint": "^5.16.0",

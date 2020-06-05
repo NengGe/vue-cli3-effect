@@ -24,7 +24,7 @@ function deepObject(to, from) {
 function deepAssign(target, ...arguments) {
   // console.log(arguments)
   var target = Object(target)
-  for (var i = 0; i < arguments.length; i++) {
+  for (var i = 0;i < arguments.length;i++) {
     deepObject(target, arguments[i])
   }
   return target
