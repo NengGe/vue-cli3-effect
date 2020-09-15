@@ -23,5 +23,10 @@ export default [
     path: '/select',
     name: 'select',
     component: () => import('@/components/select/demo')
+  },
+  {
+    path: '/sort',
+    name: 'sort',
+    component: () => import('@/components/sort-block')
   }
 ]

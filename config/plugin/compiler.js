@@ -17,11 +17,11 @@ class Compiler {
     this.kzAsyncHook('我是空智', 31)
   }
   kzSyncHook(name, age) {
-    console.log(this.hooks.kzSyncHook)
+    // console.log(this.hooks.kzSyncHook)
     this.hooks.kzSyncHook.call(name, age)
   }
   kzAsyncHook(name, age) {
-    console.log(this.hooks.kzAsyncHook)
+    // console.log(this.hooks.kzAsyncHook)
     this.hooks.kzAsyncHook.callAsync(name, age)
   }
 }

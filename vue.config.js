@@ -1,7 +1,7 @@
 const webpack = require('webpack')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const path = require('path')
-const MyFirstWebpackPlugin = require('./config/plugin/myFirstWebpackPlugin')
+const MyPlugin = require('./config/plugin/MyPlugin')
 const NODE_ENV = process.env.NODE_ENV
 module.exports = {
   lintOnSave: 'warning',
@@ -20,7 +20,7 @@ module.exports = {
   configureWebpack(config) {
     // console.log(config.plugins)
     config.plugins.push(
-      new MyFirstWebpackPlugin()
+      new MyPlugin()
     )
     // console.log(config.optimization)
     // config.optimization.splitChunks.cacheGroups.async = {
